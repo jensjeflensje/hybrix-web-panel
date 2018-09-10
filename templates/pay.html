@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='minecraft-webfont.css') }}" />
+
+    <title>Hybrix | Overmaken</title>
+  </head>
+  <style>
+    body {
+      background-color:#FF9F00
+    }
+    .main {
+      margin: 15vh 5% 5% 5%;
+      background-color: #FFBF00;
+      box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.1);
+      margin: auto;
+    }
+    .main img {
+      position: absolute;
+      transform: translate(-50%,-50%);
+      left: 50%;
+      width: 17vh;
+    }
+    .main-text {
+      font-family: "Minecraft";
+      font-size: 2vh;
+      text-align: center;
+      padding: 2%;
+      box-shadow: 0;
+      text-decoration: none;
+    }
+    .buttons {
+      margin-top: 30%;
+    }
+    .buttons a {
+      text-decoration: none;
+      color: white;
+    }
+    .button-login {
+      padding-top: 6%;
+      padding-bottom: 7%;
+      border-top: 1px solid #FF9F00;
+      border-bottom: 1px solid #FF9F00;
+    }
+    .button-register {
+      padding-top: 7%;
+    }
+
+    input[type=text] {
+      width: 45vh;
+      padding: 10px 10px;
+      box-sizing: border-box;
+      border: 3px solid #ccc;
+      transition: 0.5s;
+      outline: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    input[type=number] {
+      width: 45vh;
+      padding: 10px 10px;
+      box-sizing: border-box;
+      border: 3px solid #ccc;
+      transition: 0.5s;
+      outline: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    input[type=submit] {
+      margin-top: 2%;
+      padding: 10px 10px;
+      box-sizing: border-box;
+      border: 3px solid #ccc;
+      transition: 0.2s;
+      outline: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    input:focus {
+      border: 3px solid #FF9F00;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    .transactions {
+      max-height: 50vh;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+
+  </style>
+  <body>
+    <div class="main">
+      <div class="main-text mc-white">
+        Je hebt nu: {{ money }}
+        <form action="/pay" method="post">
+          <h2>Gebruikersnaam ontvanger</h2>
+          <input type="text" name="username" placeholder="Typ hier de gebruikersnaam">
+          <h2>Het aantal euro's om over te maken</h2>
+          <input type="number" name="money" placeholder="Typ hier het aantal euro's"><br>
+          <h2>Reden (Niet verplicht)</h2>
+          <input type="text" name="reason" placeholder="Typ hier de reden waarom dat je geld over maakt"><br>
+          <input type="submit" value="Overmaken">
+          </form>
+        {% if error %}
+          {{ error }}
+        {% endif %}
+        <h3>Betaald</h3>
+        <div class="transactions">
+          <table style="border: 1px solid black; border-spacing: 0px;border-collapse: collapse;">
+            <tr>
+              <th style="border: 1px solid black;padding: 5px;font-size: 2vh">Van</th>
+              <th style="border: 1px solid black;padding: 5px;font-size: 2vh">Naar</th>
+              <th style="border: 1px solid black;padding: 5px;font-size: 2vh">Hoeveelheid</th>
+              <th style="border: 1px solid black;padding: 5px;font-size: 2vh">Datum / Tijd</th>
+              <th style="border: 1px solid black;padding: 5px;font-size: 2vh">Reden</th>
+            </tr>
+
+            {% for paid_thing in paid %}
+            <tr>
+              <td style="border: 1px solid black;padding: 5px;font-size: 2vh">{{ paid_thing.payer }}</td>
+              <td style="border: 1px solid black;padding: 5px;font-size: 2vh">{{ paid_thing.receiver }}</td>
+              <td style="border: 1px solid black;padding: 5px;font-size: 2vh">{{ paid_thing.amount }}</td>
+              <td style="border: 1px solid black;padding: 5px;font-size: 2vh">{{ paid_thing.date }}</td>
+              <td style="border: 1px solid black;padding: 5px;font-size: 2vh">{{ paid_thing.reason }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <h3>Ontvangen</h3>
+        <div class="transactions">
+          <table style="border: 1px solid black; border-spacing: 0px;border-collapse: collapse;">
+            <tr>
+              <th style="border: 1px solid black;padding: 5px">Van</th>
+              <th style="border: 1px solid black;padding: 5px">Naar</th>
+              <th style="border: 1px solid black;padding: 5px">Hoeveelheid</th>
+              <th style="border: 1px solid black;padding: 5px">Datum / Tijd</th>
+              <th style="border: 1px solid black;padding: 5px">Reden</th>
+            </tr>
+
+            {% for received_thing in received %}
+            <tr>
+              <td style="border: 1px solid black;padding: 5px">{{ received_thing.payer }}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ received_thing.receiver }}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ received_thing.amount }}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ received_thing.date }}</td>
+              <td style="border: 1px solid black;padding: 5px">{{ received_thing.reason }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mijn Hybrix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='minecraft-webfont.css') }}" />
+  </head>
+  <style>
+    .main {
+      margin-top: 20vh;
+      background-color: #FFBF00;
+      box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.05);
+      margin: auto;
+      width: 40vh;
+      height: 50vh;
+    }
+    .main img {
+      position: absolute;
+      transform: translate(-50%,-50%);
+      left: 50%;
+      width: 10%;
+    }
+    .main-text {
+      padding-top: 20%;;
+      font-family: "Minecraft";
+      font-size: 3vh;
+      text-align: center;
+    }
+    .buttons {
+      margin-top: 30%;
+    }
+    .buttons a {
+      text-decoration: none;
+      color: white;
+    }
+    .button-login {
+      padding-top: 6%;
+      padding-bottom: 7%;
+      border-top: 1px solid #FF9F00;
+      border-bottom: 1px solid #FF9F00;
+    }
+    .button-register {
+      padding-top: 7%;
+    }
+
+  </style>
+  <body style="background-color:#FF9F00">
+    <div style="margin-top: 20vh;">
+      <div class="main">
+        <img src="{{ url_for('static', filename='icon.png') }}" alt="">
+        <div class="main-text mc-white">
+          <p>Welkom,<br>
+          op Mijn Hybrix!</p>
+        </div>
+        <div class="buttons">
+          <div class="button-login main-text mc-white">
+            <a href="/login">Login</a>
+          </div>
+          <div class="button-register main-text mc-white">
+            <a href="/register">Registreer</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
