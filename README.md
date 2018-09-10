@@ -4,3 +4,5 @@ This is a web panel created for a minecraft server called hybrix. With this web 
 You will have to edit the html files because it says hybrix as the server.
 
 The api code has to match the code that is in the plugin's config.yml
+
+Plugin: https://github.com/jensjeflensje/hybrix-api-plugin
